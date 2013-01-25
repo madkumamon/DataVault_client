@@ -1,0 +1,31 @@
+%h1 Stored Data
+
+- if current_user
+  = form_tag tasks_path do
+    = text_field_tag :name
+    = submit_tag "Add"
+  %ul#tasks
+    - @tasks.each do |task|
+      %li= task["name"]
+  %p#logged_in
+    Logged in as
+    = succeed "." do
+      %strong= current_user.name
+    = link_to "Sign Out", signout_path
+- else
+  %p
+    %strong Currently not signed in.
+  %p
+    = link_to "Sign in through To Do List", "/auth/doorkeeper"
+-#- unless @stored_datum
+-#  .table_container
+-#    %table.table.table-hover.table-bordered
+-#      %thead
+-#        %tr
+-#          %th Key
+-#          %th Value
+-#      %tbody
+-#        - @stored_datum.each do |data|
+-#          %tr
+-#            %td= data.key
+-#            %td= data.value
